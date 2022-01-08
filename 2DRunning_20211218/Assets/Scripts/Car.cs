@@ -8,7 +8,15 @@ public class Car : MonoBehaviour
     #region 欄位 Field
     // ※ 欄位語法
     // 資料類型 欄位名稱 結尾
+    // ※ 四大常用資料類型
+    // 整　數 int
+    // 浮點數 float
+    // 字　串 string
+    // 布林值 bool
     int cc;
+    float weight;
+    string brand;
+    bool hasWindow;
     #endregion
 }
 
