@@ -9,6 +9,7 @@ public class learnoperator : MonoBehaviour
     public float b = 3;
     public float c = 5;
     public float d = 4;
+    public float e = 1;
 
     private void Start()
     {
@@ -58,6 +59,22 @@ public class learnoperator : MonoBehaviour
         print(!true);
         print(!false);
 
+        //為數字加1
+        e = e + 1;
+        print("e的結果" + e);
+        //快速加1
+        e++;
+        //快速減1
+        e--;
+
+        //直接加減乘除餘
+        e += 10;  //加10
+        e -= 10; //減10
+        e *= 10; //乘10
+        e /= 10; //除10
+        e %= 10; //餘10
+
+        
         #endregion
 
 
