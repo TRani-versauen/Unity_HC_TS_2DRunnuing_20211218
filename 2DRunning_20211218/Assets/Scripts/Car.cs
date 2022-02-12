@@ -35,6 +35,8 @@ public class Car : MonoBehaviour
     public Vector2 v2One = Vector2.one;
     public Vector2 vector2A = new Vector2(3.5f, 9.5f);
     #endregion
+    public KeyCode jump = KeyCode.Space;
+
 }
 
 // 非汽車類別資料
