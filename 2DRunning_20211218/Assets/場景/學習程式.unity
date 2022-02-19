@@ -326,7 +326,7 @@ MonoBehaviour:
   atk1: 10
   atk2: 20
   atk3: 30
-  atks: 
+  atks: 000000000000000000000000
   speeds:
   - 0
   - 0
