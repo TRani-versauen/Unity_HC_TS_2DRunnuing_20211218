@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // 引用場景管理 命名空間, 可以使用API
 
 /// <summary>
 /// 切換場景
@@ -12,9 +11,9 @@ public class scenecontrol : MonoBehaviour
     /// <summary>
     /// 載入場景
     /// </summary>
-    private void LoadScence()
+    public void LoadScene()
     {
-
+        SceneManager.LoadScene("關卡 1");
     }
 
     //讓按鈕跟程式溝通的方法
