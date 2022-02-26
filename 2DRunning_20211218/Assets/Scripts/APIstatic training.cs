@@ -55,14 +55,17 @@ public class APIstatictraining : MonoBehaviour
         #region//取得
         //是否按下空白鍵
         print("是否按下任意鍵" + Input.anyKey);
-        
+
         //顯示經過的時間
         //print("經過時間" + Time.time);
 
         #endregion
 
+        #region //存放
+        #endregion   //也有存放類型
+
         #region//使用
-       //是否按下空白鍵
+        //是否按下空白鍵
         print("是否按下空白鍵" + Input.GetKeyDown(KeyCode.Space));
         #endregion
     }

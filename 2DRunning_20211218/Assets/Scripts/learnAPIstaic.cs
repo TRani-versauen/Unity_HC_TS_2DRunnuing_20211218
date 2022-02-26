@@ -1,5 +1,3 @@
-
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -27,7 +25,7 @@ public class learnAPIstaic : MonoBehaviour
 
         //3.使用靜態語法
         //類別名稱.靜態方法名稱(對應的引數);
-        float number777 = Math.Abs(-7.77f);
+        float number777 = Mathf.Abs(-7.77f);
         print("-7.77的絕對值=" + number777);
 
     }
