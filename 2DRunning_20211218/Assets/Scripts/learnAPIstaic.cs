@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -17,6 +18,9 @@ public class learnAPIstaic : MonoBehaviour
         print("無限大" + Mathf.Infinity);
 
         //存放 Set
+        //類別名稱.靜態屬性名稱 指定 值;
+        //athf.Infinity PI = 9.99999f;      //唯獨屬性不能存放
+        Cursor.visible = false;             //滑鼠隱藏
     }
 }
     
