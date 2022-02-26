@@ -7,15 +7,28 @@ using UnityEngine;
 /// </summary>
 public class APInonstatictraining : MonoBehaviour
 {
- 
+    public Camera cam;
+    public SpriteRenderer spr;
+    public Transform banana;
+    public Rigidbody2D apple;
+
     void Start()
     {
-        
-    }
+        //顯示攝影機景深
+        print("主攝影機景深" + cam.depth);
+        //取得奇異果的顏色
+        print("奇異果的顏色" + spr.color);
+        //攝影機的背景顏色 (隨機顏色)
+        cam.backgroundColor = Random.ColorHSV();
+        spr.flipY = true;
 
+    }
 
     void Update()
     {
-        
+        //讓香蕉旋轉
+        banana.Rotate(0, 0, 5);
+        //讓蘋果以加速度的方式向上移動
+        apple.AddForce(new Vector2(0,10));
     }
 }
