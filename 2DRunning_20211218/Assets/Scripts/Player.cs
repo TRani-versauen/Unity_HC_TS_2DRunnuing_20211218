@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     //提示tooltip
     [Header("跑步速度"), Range(0, 500)]
     public float Speed = 1.5f;
-    [Header("跳躍高度"), Range(0, 50)]
-    public int jump = 50;
+    [Header("跳躍高度"), Range(0, 500)]
+    public int jump = 500;
     [Tooltip("儲存角色是否滑行")]
     public bool isslide;
     [Tooltip("儲存角色是否死亡")]
@@ -29,11 +29,15 @@ public class Player : MonoBehaviour
     #endregion
 
     public Transform traPlayer;
-    [Header("跳躍案鍵")]
+    
     public KeyCode KeyJump = KeyCode.Space;
 
     //面板屬性... Debug 模式可以看到隱藏的元件
     private Rigidbody2D  rig;
+    [Header("跳躍段數最大值"), Range(0, 5)]
+    public int  CountJumpMax = 2;
+
+    public int CountJump ;
 
     private void Start()
     {
@@ -70,10 +74,16 @@ public class Player : MonoBehaviour
     {
         bool inputjump = Input.GetKeyDown(KeyJump);
         //print("是否跳躍" + inputjump);
-        if(inputjump)
+
+        //如果按下跳躍 並且跳躍次數大於0 就可以往上跳
+        if(inputjump && CountJump>0)
         {
-            
+            rig.AddForce(new Vector2(0, jump));
+
+            CountJump--;
         }
+
+        
     }
     #endregion
 }
