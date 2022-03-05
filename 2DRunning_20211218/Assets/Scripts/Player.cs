@@ -39,6 +39,25 @@ public class Player : MonoBehaviour
 
     public int CountJump ;
 
+    [Header("檢查地板位移")]
+    public Vector3 v3GroundOffset;
+    [Header("檢查地板尺寸")]
+    public Vector3 v3GroundSize = Vector3.one;
+
+    #region 事件
+
+    //繪製圖示事件:在Unity內繪製輔助用圖示, 包含:線,方形,圓形等 (執行檔不會顯示)
+    private void OnDrawGizmos()
+    {
+        //決定圖示顏色
+        Gizmos.color = new Color(1, 1, 1);
+        //2.繪製圖示
+        //圖示繪製方體(中心點,尺寸)
+        Gizmos.DrawCube(transform.position + v3GroundOffset, v3GroundSize);
+    }
+
+    #endregion
+
     private void Start()
     {
        //GetComponent<元件類型>()    <>為 "泛型" 可以為所有類型
@@ -51,8 +70,9 @@ public class Player : MonoBehaviour
         Run();
         Jump();
     }
-
-    #region 跑步
+    
+    
+    #region 方法
 
     private void Run()
     {
@@ -67,7 +87,7 @@ public class Player : MonoBehaviour
         //transForm.成員名稱
         transform.Translate(Speed * Time.deltaTime, 0, 0);
     }
-    #endregion
+    
 
     #region 跳躍
     private void Jump()
@@ -85,6 +105,7 @@ public class Player : MonoBehaviour
 
         
     }
+    #endregion
     #endregion
 }
 
