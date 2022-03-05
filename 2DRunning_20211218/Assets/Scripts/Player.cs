@@ -29,20 +29,36 @@ public class Player : MonoBehaviour
     #endregion
 
     public Transform traPlayer;
+    [Header("跳躍案鍵")]
+    public KeyCode KeyJump = KeyCode.Space;
 
     #region 跑步
-    
+
 
     public void Update()
     {
-        Run(); 
+        Run();
     }
 
     private void Run()
     {
+        //存取transfrom的第一種方式
         //玩家變形.位移(x,y,z)
-        //deltalTime 一幀的時間
-        traPlayer.Translate(Speed*Time.deltaTime, 0, 0);
+        //Time.deltalTime 一幀的時間
+        //traPlayer.Translate(Speed*Time.deltaTime, 0, 0);
+
+        //存取transfrom的第二種方式
+        //條件: 當要控制的Transform 與此元件同一階層
+        //語法:
+        //transForm.成員名稱
+        transform.Translate(Speed * Time.deltaTime, 0, 0);
+    }
+    #endregion
+
+    #region 跳躍
+    private void Jump()
+    {
+
     }
     #endregion
 }
