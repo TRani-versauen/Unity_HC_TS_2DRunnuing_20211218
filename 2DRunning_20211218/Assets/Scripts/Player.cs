@@ -1,3 +1,4 @@
+using UnityEditor.Timeline;
 using UnityEngine;
 
 /// <summary>
@@ -5,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
+    #region
     //人物速度、跳躍高度、是否滑行、是否死亡
     //動畫參數跳躍，滑行與死亡
     //屬性attribute
@@ -24,7 +26,25 @@ public class Player : MonoBehaviour
     public string parameterJump = "觸發跳躍";
     public string parameterslide = "開關滑行";
     public string parameterdead = "觸發死亡";
+    #endregion
 
+    public Transform traPlayer;
+
+    #region 跑步
+    
+
+    public void Update()
+    {
+        Run(); 
+    }
+
+    private void Run()
+    {
+        //玩家變形.位移(x,y,z)
+        //deltalTime 一幀的時間
+        traPlayer.Translate(Speed*Time.deltaTime, 0, 0);
+    }
+    #endregion
 }
 
 
