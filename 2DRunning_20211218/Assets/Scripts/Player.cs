@@ -32,13 +32,23 @@ public class Player : MonoBehaviour
     [Header("跳躍案鍵")]
     public KeyCode KeyJump = KeyCode.Space;
 
-    #region 跑步
+    //面板屬性... Debug 模式可以看到隱藏的元件
+    private Rigidbody2D  rig;
 
+    private void Start()
+    {
+       //GetComponent<元件類型>()    <>為 "泛型" 可以為所有類型
+       //指定元件
+        rig = GetComponent<Rigidbody2D>();
+    }
 
     public void Update()
     {
         Run();
+        Jump();
     }
+
+    #region 跑步
 
     private void Run()
     {
@@ -58,7 +68,12 @@ public class Player : MonoBehaviour
     #region 跳躍
     private void Jump()
     {
-
+        bool inputjump = Input.GetKeyDown(KeyJump);
+        //print("是否跳躍" + inputjump);
+        if(inputjump)
+        {
+            
+        }
     }
     #endregion
 }
