@@ -43,6 +43,13 @@ public class Player : MonoBehaviour
     public Vector3 v3GroundOffset;
     [Header("檢查地板尺寸")]
     public Vector3 v3GroundSize = Vector3.one;
+    [Header("地板的圖層")]
+    public LayerMask layerground;
+
+    //private Animation aniOld;  舊版
+    //private Animator  aniNew;  新版
+
+    private Animator ani;
 
     #region 事件
 
@@ -63,6 +70,7 @@ public class Player : MonoBehaviour
        //GetComponent<元件類型>()    <>為 "泛型" 可以為所有類型
        //指定元件
         rig = GetComponent<Rigidbody2D>();
+        ani = GetComponent<Animator>();
     }
 
     public void Update()
@@ -88,8 +96,6 @@ public class Player : MonoBehaviour
         transform.Translate(Speed * Time.deltaTime, 0, 0);
     }
     
-
-    #region 跳躍
     private void Jump()
     {
         bool inputjump = Input.GetKeyDown(KeyJump);
@@ -101,12 +107,15 @@ public class Player : MonoBehaviour
             rig.AddForce(new Vector2(0, jump));
 
             CountJump--;
+
+            ani.SetTrigger(parameterJump);
         }
 
-        
+        // 2D 碰撞 = 2D 物理.方形覆蓋(中心點,尺寸,角度)
+        Collider2D hit = Physics2D.OverlapBox(transform.position + v3GroundOffset, v3GroundSize, 0,layerground);
+        if (hit && rig.velocity.y<0)
+            CountJump = CountJumpMax;
     }
     #endregion
-    #endregion
+
 }
-
-

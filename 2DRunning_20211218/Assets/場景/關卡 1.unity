@@ -1019,7 +1019,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -1065,7 +1065,10 @@ MonoBehaviour:
   CountJumpMax: 2
   CountJump: 2
   v3GroundOffset: {x: 0.22, y: -1.45, z: 0}
-  v3GroundSize: {x: 1, y: 0.05, z: 1}
+  v3GroundSize: {x: 1, y: 0.31, z: 1}
+  layerground:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1001 &647539249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13754,7 +13757,7 @@ GameObject:
   - component: {fileID: 1590850868}
   - component: {fileID: 1590850870}
   - component: {fileID: 1590850869}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: "\u4E00\u822C\u5730\u677F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
