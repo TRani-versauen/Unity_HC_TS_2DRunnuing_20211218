@@ -1,5 +1,6 @@
 using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 橫向卷軸角色跑庫動作
@@ -45,6 +46,10 @@ public class Player : MonoBehaviour
     public Vector3 v3GroundSize = Vector3.one;
     [Header("地板的圖層")]
     public LayerMask layerground;
+    [Header("滑行案鍵")]
+    public KeyCode keySlide = KeyCode.DownArrow;
+
+    private CapsuleCollider2D cc2d;
 
     //private Animation aniOld;  舊版
     //private Animator  aniNew;  新版
@@ -63,25 +68,27 @@ public class Player : MonoBehaviour
         Gizmos.DrawCube(transform.position + v3GroundOffset, v3GroundSize);
     }
 
-    #endregion
-
     private void Start()
     {
        //GetComponent<元件類型>()    <>為 "泛型" 可以為所有類型
        //指定元件
         rig = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
+        cc2d = GetComponent<CapsuleCollider2D>();
     }
 
-    public void Update()
+    private void Update()
     {
         Run();
         Jump();
+        Slide();
     }
-    
-    
-    #region 方法
+    #endregion
 
+    #region 方法
+    /// <summary>
+    /// 跑步
+    /// </summary>
     private void Run()
     {
         //存取transfrom的第一種方式
@@ -96,6 +103,9 @@ public class Player : MonoBehaviour
         transform.Translate(Speed * Time.deltaTime, 0, 0);
     }
     
+    /// <summary>
+    /// 跳躍
+    /// </summary>
     private void Jump()
     {
         bool inputjump = Input.GetKeyDown(KeyJump);
@@ -116,6 +126,31 @@ public class Player : MonoBehaviour
         if (hit && rig.velocity.y<0)
             CountJump = CountJumpMax;
     }
+
+    private void Slide()
+    {
+        //判斷是否按下滑行
+        //更新滑行動畫
+        //更新碰撞器
+        if (Input.GetKey(keySlide))
+        {
+            ani.SetBool(parameterslide, true);
+            //滑行 offset (0.2,-0.8) Size(2,1.3) h
+            cc2d.offset = new Vector2(0.2f, -0.8f);
+            cc2d.size = new Vector2(2, 1.3f);
+            cc2d.direction = CapsuleDirection2D.Horizontal;
+        }
+        else
+        {
+            ani.SetBool(parameterslide, false);
+            //站立 offset (0.2,-0.2) Size(1,2.5) v
+            cc2d.offset = new Vector2(0.2f, -0.2f);
+            cc2d.size = new Vector2(1, 2.5f);
+            cc2d.direction = CapsuleDirection2D.Vertical;
+        }
+    }
+
+    
     #endregion
 
 }
