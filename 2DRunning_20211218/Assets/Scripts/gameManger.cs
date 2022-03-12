@@ -21,10 +21,25 @@ public class gameManger : MonoBehaviour
     public Text textFinalTitle;
     [Header("顯示結束畫面間隔"), Range(0, 0.5f)]
     public float showFinalInterval = 0.1f;
+    [Header("死亡動畫參數")]
+    public string parameterDead = "觸發死亡";
+    [Header("過關區域名稱")]
+    public string namepass = "勝利區域";
+
 
 
     private int score;
     private float hpMax;
+    private Animator ani;
+    private Player player;
+    
+    private void Start()
+    {
+        ani = GetComponent<Animator>();
+        player = GetComponent<Player>();
+        hpMax = hp;              //遊戲開始時的血量
+    }
+
 
     private void Update()
     {
@@ -32,10 +47,6 @@ public class gameManger : MonoBehaviour
         UpdateHpUI();
     }
 
-    private void Start()
-    {
-        hpMax = hp;              //遊戲開始時的血量
-    }
 
     private void ShowFinal()
     {
@@ -58,7 +69,9 @@ public class gameManger : MonoBehaviour
     private void UpdateHpUI()
     {
         hp -= Time.deltaTime;
+        hp = Mathf.Clamp(hp, 0, hpMax);
         imgHp.fillAmount = hp / hpMax;
+        lose();
     }
 
     private void AddScoreAndUpdateUI(int add)
@@ -72,6 +85,37 @@ public class gameManger : MonoBehaviour
         hp += value;
         hp = Mathf.Clamp(hp, 0, hpMax);
         imgHp.fillAmount = hp / hpMax;
+        lose();
+
+    }
+
+    private void lose()
+    {
+        if (hp == 0 && groupfinal.alpha==0) //如果血量等於0 背景透明度等於0
+        {
+            textFinalTitle.text = "You died";
+
+            groupfinal.interactable = true;
+
+            ani.SetTrigger(parameterDead);
+            player.enabled = false;
+            //延遲重複呼叫("方法名稱",延遲時間,間隔)
+            InvokeRepeating("ShowFinal", 0, showFinalInterval);
+        }
+    }
+
+    private void Win()
+    {        
+        
+        {
+            textFinalTitle.text = "You win";
+
+            groupfinal.interactable = true;
+
+            player.enabled = false;
+            
+            InvokeRepeating("ShowFinal", 0, showFinalInterval);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -83,11 +127,19 @@ public class gameManger : MonoBehaviour
             if (collision.name.Contains("草莓")) ChangeHpAndUpdateUI(10);
             Destroy(collision.gameObject);
         }
-        
+
         if (collision.tag == tagTrap)
         {
             ChangeHpAndUpdateUI(-collision.GetComponent<Trap>().Damage);
         }
+
+        if(collision.name == namepass)
+        {
+            Win();
+        }
+
+
     }
+
 }
 

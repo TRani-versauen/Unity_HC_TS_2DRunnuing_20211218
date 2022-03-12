@@ -7,6 +7,12 @@ using UnityEngine.UI;
 /// </summary>
 public class Player : MonoBehaviour
 {
+    [Header("音效")]
+    public AudioClip soundJump;
+    public AudioClip soundSlide;
+
+    private AudioSource aud;
+
     #region
     //人物速度、跳躍高度、是否滑行、是否死亡
     //動畫參數跳躍，滑行與死亡
@@ -75,6 +81,7 @@ public class Player : MonoBehaviour
         rig = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         cc2d = GetComponent<CapsuleCollider2D>();
+        aud = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -119,6 +126,8 @@ public class Player : MonoBehaviour
             CountJump--;
 
             ani.SetTrigger(parameterJump);
+
+            aud.PlayOneShot(soundJump);
         }
 
         // 2D 碰撞 = 2D 物理.方形覆蓋(中心點,尺寸,角度)
@@ -139,6 +148,8 @@ public class Player : MonoBehaviour
             cc2d.offset = new Vector2(0.2f, -0.8f);
             cc2d.size = new Vector2(2, 1.3f);
             cc2d.direction = CapsuleDirection2D.Horizontal;
+
+            if(!aud.isPlaying) aud.PlayOneShot(soundSlide,0.5f);
         }
         else
         {
