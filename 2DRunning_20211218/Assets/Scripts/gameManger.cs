@@ -13,6 +13,14 @@ public class gameManger : MonoBehaviour
     public float hp = 100;
     [Header("道具")]
     public string tagProp = "道具";
+    [Header("陷阱")]
+    public string tagTrap = "陷阱";
+    [Header("結束畫面")]
+    public CanvasGroup groupfinal;
+    [Header("結束畫面標題")]
+    public Text textFinalTitle;
+    [Header("顯示結束畫面間隔"), Range(0, 0.5f)]
+    public float showFinalInterval = 0.1f;
 
 
     private int score;
@@ -27,6 +35,11 @@ public class gameManger : MonoBehaviour
     private void Start()
     {
         hpMax = hp;              //遊戲開始時的血量
+    }
+
+    private void ShowFinal()
+    {
+        groupfinal.alpha += 0.2f;
     }
 
     /// <summary>
@@ -48,10 +61,17 @@ public class gameManger : MonoBehaviour
         imgHp.fillAmount = hp / hpMax;
     }
 
-    private void AddScoreAndUpdateUI()
+    private void AddScoreAndUpdateUI(int add)
     {
-        score += 100;
+        score += add;
         textScore.text = "分數" + score;
+    }
+
+    private void ChangeHpAndUpdateUI(float value)
+    {
+        hp += value;
+        hp = Mathf.Clamp(hp, 0, hpMax);
+        imgHp.fillAmount = hp / hpMax;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -59,11 +79,15 @@ public class gameManger : MonoBehaviour
         //print("玩家碰到:" + collision.name);
         if (collision.tag == tagProp)
         {
-            AddScoreAndUpdateUI();
+            AddScoreAndUpdateUI(collision.GetComponent<Prop>().Score);
+            if (collision.name.Contains("草莓")) ChangeHpAndUpdateUI(10);
             Destroy(collision.gameObject);
         }
+        
+        if (collision.tag == tagTrap)
+        {
+            ChangeHpAndUpdateUI(-collision.GetComponent<Trap>().Damage);
+        }
     }
-
-    
 }
 
